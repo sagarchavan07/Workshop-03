@@ -77,6 +77,12 @@ public class DeckOfCards {
             }
         }
     }
+    public void printAllPlayerCards(){
+        for (int i = 0; i < Player.playerList.size(); i++) {
+            System.out.print("Player-" + (i+1) +" ");
+            printCards(Player.playerList.get(i).playerCards);
+        }
+    }
     public static void main(String[] args) {
         DeckOfCards deckOfCards=new DeckOfCards();
         deckOfCards.initializeCards();
@@ -84,5 +90,6 @@ public class DeckOfCards {
         deckOfCards.changePlayerOrder();
         deckOfCards.shuffleCards();
         deckOfCards.distributeCards(Player.playerList,Card.cardArray);
+        deckOfCards.printAllPlayerCards();
     }
 }

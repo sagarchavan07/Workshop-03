@@ -29,14 +29,43 @@ public class DeckOfCards {
             numOfPlayers = scanner.nextInt();
         } while (numOfPlayers < 2 || numOfPlayers > 4);
         for (int i = 0; i < numOfPlayers; i++) {
-            Player.addPlayer(new Player());
+            System.out.println("enter new planer name");
+            String playerName=scanner.next();
+            Player.addPlayer(new Player(playerName));
         }
         System.out.println("players added: "+numOfPlayers);
+    }
+
+    void changePlayerOrder(){
+        System.out.println(Player.playerList);
+        System.out.print("Do you want to change Player Order (y/n): ");
+
+        if (scanner.next().equalsIgnoreCase("y")){
+            System.out.println("sequencing the Players order..");
+            int n=Player.playerList.size();
+            for (int i = 0; i < n; i++) {
+                Player player=null;
+                do {
+                    System.out.println("enter player-" + (i + 1) + " name");
+                    player = Player.getPlayer(scanner.next());
+                    swapPlayer(i, Player.playerList.indexOf(player));
+                }while (player == null);
+
+            }
+        }
+
+    }
+    public void swapPlayer(int i, int j){
+        Player player=Player.playerList.get(i);
+        Player.playerList.add(i,Player.playerList.get(j));
+        Player.playerList.add(j,player);
     }
 
     public static void main(String[] args) {
         DeckOfCards deckOfCards=new DeckOfCards();
         deckOfCards.initializeCards();
         deckOfCards.addPlayers();
+        deckOfCards.changePlayerOrder();
+
     }
 }

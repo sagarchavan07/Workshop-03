@@ -1,6 +1,8 @@
 package com.bridgelabz;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class DeckOfCards {
@@ -83,13 +85,25 @@ public class DeckOfCards {
             printCards(Player.playerList.get(i).playerCards);
         }
     }
+    public void sortPlayerCards(){
+        System.out.println("Sorting player Cards...");
+        for (Player player:Player.playerList) {
+            Arrays.sort(player.playerCards);
+        }
+    }
+
     public static void main(String[] args) {
         DeckOfCards deckOfCards=new DeckOfCards();
         deckOfCards.initializeCards();
+
         deckOfCards.addPlayers();
         deckOfCards.changePlayerOrder();
+
         deckOfCards.shuffleCards();
+
         deckOfCards.distributeCards(Player.playerList,Card.cardArray);
+
+        deckOfCards.sortPlayerCards();
         deckOfCards.printAllPlayerCards();
     }
 }

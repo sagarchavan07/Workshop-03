@@ -16,6 +16,11 @@ public class Player {
         playerList.add(player);
     }
 
+    public static void swapPlayer(int i, int j){
+        Player player=playerList.get(i);
+        playerList.set(i,playerList.get(j));
+        playerList.set(j,player);
+    }
     public static Player getPlayer(String name){
         Player player1=null;
         for (Player player:playerList) {

@@ -1,31 +1,32 @@
 package com.bridgelabz;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class DeckOfCards {
-    static Scanner scanner=new Scanner(System.in);
-    void initializeCards(){
+    static Scanner scanner = new Scanner(System.in);
+
+    void initializeCards() {
         System.out.println("initializing cards...");
-        int cardIndex=0;
+        int cardIndex = 0;
         for (int i = 0; i < Card.suitArray.length; i++) {
             for (int j = 0; j < Card.rankArray.length; j++) {
-                Card card=new Card(Card.suitArray[i],Card.rankArray[j]);
-                Card.cardArray[cardIndex++]=card;
+                Card card = new Card(Card.suitArray[i], Card.rankArray[j]);
+                Card.cardArray[cardIndex++] = card;
             }
         }
         printCards(Card.cardArray);
     }
-    void printCards(Card[] cards){
+
+    void printCards(Card[] cards) {
         System.out.print("Cards{");
         for (Card card : cards) {
             System.out.print(card.getSuit() + "-" + card.getRank() + ", ");
         }
         System.out.println("}");
     }
-    void addPlayers(){
+
+    void addPlayers() {
         int numOfPlayers;
         do {
             System.out.println("Enter number of players (2 to 4): ");
@@ -33,67 +34,71 @@ public class DeckOfCards {
         } while (numOfPlayers < 2 || numOfPlayers > 4);
         for (int i = 0; i < numOfPlayers; i++) {
             System.out.println("enter new planer name");
-            String playerName=scanner.next();
+            String playerName = scanner.next();
             Player.addPlayer(new Player(playerName));
         }
-        System.out.println("players added: "+numOfPlayers);
+        System.out.println("players added: " + numOfPlayers);
     }
 
-    void changePlayerOrder(){
+    void changePlayerOrder() {
         System.out.println(Player.playerList);
         System.out.print("Do you want to change Player Order (y/n): ");
 
-        if (scanner.next().equalsIgnoreCase("y")){
-            int n=Player.playerList.size();
+        if (scanner.next().equalsIgnoreCase("y")) {
+            int n = Player.playerList.size();
             for (int i = 0; i < n; i++) {
-                Player player=null;
+                Player player;
                 do {
                     System.out.println("enter player-" + (i + 1) + " name");
                     player = Player.getPlayer(scanner.next());
                     Player.swapPlayer(i, Player.playerList.indexOf(player));
-                }while (player == null);
+                } while (player == null);
             }
         }
         System.out.println(Player.playerList);
     }
 
-    void shuffleCards(){
+    void shuffleCards() {
         System.out.println("shuffling Cards...");
         for (int i = 0; i < Card.cardArray.length; i++) {
-            int random= ( (int)( Math.random()*1000 ) % (Card.cardArray.length-1) );
-            swapCards(i,random);
+            int random = ((int) (Math.random() * 1000) % (Card.cardArray.length - 1));
+            swapCards(i, random);
         }
         printCards(Card.cardArray);
     }
-    void swapCards(int i, int j){
-        Card temp=Card.cardArray[i];
-        Card.cardArray[i]=Card.cardArray[j];
-        Card.cardArray[j]=temp;
+
+    void swapCards(int i, int j) {
+        Card temp = Card.cardArray[i];
+        Card.cardArray[i] = Card.cardArray[j];
+        Card.cardArray[j] = temp;
     }
-    public void distributeCards(ArrayList<Player> playerList, Card[] cardArray){
+
+    public void distributeCards() {
         System.out.println("distributing cards...");
-        int cardIndex=0;
-        for (Player player:playerList) {
+        int cardIndex = 0;
+        for (Player player : Player.playerList) {
             for (int i = 0; i < 9; i++) {
-                player.playerCards[i]=cardArray[cardIndex++];
+                player.playerCards[i] = Card.cardArray[cardIndex++];
             }
         }
     }
-    public void printAllPlayerCards(){
-        for (int i = 0; i < Player.playerList.size(); i++) {
-            System.out.print("Player-" + (i+1) +" ");
-            printCards(Player.playerList.get(i).playerCards);
+
+    public void printAllPlayerCards() {
+        for (Player player : Player.playerList) {
+            System.out.print("Player-" + player.getName() + " ");
+            printCards(player.playerCards);
         }
     }
-    public void sortPlayerCards(){
+
+    public void sortPlayerCards() {
         System.out.println("Sorting player Cards...");
-        for (Player player:Player.playerList) {
+        for (Player player : Player.playerList) {
             Arrays.sort(player.playerCards);
         }
     }
 
     public static void main(String[] args) {
-        DeckOfCards deckOfCards=new DeckOfCards();
+        DeckOfCards deckOfCards = new DeckOfCards();
         deckOfCards.initializeCards();
 
         deckOfCards.addPlayers();
@@ -101,7 +106,7 @@ public class DeckOfCards {
 
         deckOfCards.shuffleCards();
 
-        deckOfCards.distributeCards(Player.playerList,Card.cardArray);
+        deckOfCards.distributeCards();
 
         deckOfCards.sortPlayerCards();
         deckOfCards.printAllPlayerCards();

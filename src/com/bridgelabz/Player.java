@@ -5,25 +5,26 @@ import java.util.ArrayList;
 public class Player {
 
     private String name;
-    Card[] playerCards =new Card[9];
-    static ArrayList<Player> playerList=new ArrayList<>();
+    Card[] playerCards = new Card[9];
+    static ArrayList<Player> playerList = new ArrayList<>();
 
     public Player(String name) {
         this.name = name;
     }
 
-    public static void addPlayer(Player player){
+    public static void addPlayer(Player player) {
         playerList.add(player);
     }
 
-    public static void swapPlayer(int i, int j){
-        Player player=playerList.get(i);
-        playerList.set(i,playerList.get(j));
-        playerList.set(j,player);
+    public static void swapPlayer(int i, int j) {
+        Player player = playerList.get(i);
+        playerList.set(i, playerList.get(j));
+        playerList.set(j, player);
     }
-    public static Player getPlayer(String name){
-        Player player1=null;
-        for (Player player:playerList) {
+
+    public static Player getPlayer(String name) {
+        Player player1 = null;
+        for (Player player : playerList) {
             if (player.getName().equalsIgnoreCase(name)) {
                 player1 = player;
                 break;
@@ -31,6 +32,7 @@ public class Player {
         }
         return player1;
     }
+
     public String getName() {
         return name;
     }
